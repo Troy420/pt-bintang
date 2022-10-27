@@ -1,8 +1,17 @@
 import {useState} from 'react';
 import {close, menu, logoBintang} from '../assets';
 import {navLinks} from '../constants';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
+
+  const { t, i18n } = useTranslation();
+
+  function clickLanguage(lang) {
+    i18n.changeLanguage(lang);
+  }
+  
+
   const [toggle, setToggle] = useState(false)
 
   return (
@@ -16,11 +25,25 @@ const Navbar = () => {
             className={`font-poppins font-semibold cursor-pointer text-[16px] ${index === navLinks.length - 1 ? 'mr-0' : 'mr-10'} text-russianBlack`}
           >
             <a href={`#${nav.id}`}>
-              {nav.title}
+              {t(`${nav.title}`)}
             </a>
           </li>
         ))}
       </ul>
+
+      <div className="lang-button px-10">
+        <button 
+          className='mr-5'
+          onClick={() => {clickLanguage('en')}}
+        >
+          English
+        </button>
+        <button
+          onClick={() => {clickLanguage('id')}}
+        >
+          Indonesian
+        </button>
+      </div>
 
       <div className='sm:hidden flex flex-1 justify-end items-center'>
         <img 
